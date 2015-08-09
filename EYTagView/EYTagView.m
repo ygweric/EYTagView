@@ -33,9 +33,9 @@
 @interface EYTagView()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UIScrollView* svContainer;
-@property (nonatomic, strong) UITextField* tfInput;
+
 @property (nonatomic, strong) NSMutableArray *tagButtons;//array of alll tag button
-@property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
+
 
 
 
@@ -293,12 +293,15 @@
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [textField resignFirstResponder];
+    if (!textField.text
+        || [textField.text isEqualToString:@""]) {
+        return NO;
+    }
     [self addTagToLast:textField.text];
     textField.text=nil;
     [self layoutTagviews];
     return NO;
 }
-
 
 -(void)textFieldDidChange:(UITextField*)textField{
     [self layoutTagviews];
@@ -319,8 +322,20 @@
         return YES;
     }
 }
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
+    if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
+        && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
+        [_delegate performSelector:@selector(textFieldDidBeginEditing:) withObject:textField];
+    }
+}
+
+
 -(void)textFieldDidEndEditing:(UITextField *)textField{
     [self layoutTagviews];
+    if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
+        && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
+        [_delegate performSelector:@selector(textFieldDidEndEditing:) withObject:textField];
+    }
 }
 #pragma mark UIMenuController
 

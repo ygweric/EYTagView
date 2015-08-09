@@ -47,6 +47,8 @@ alpha:1.0]
 
 @interface EYTagView : UIView
 @property (nonatomic, strong) id<EYTagViewDelegate> delegate;
+@property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
+@property (nonatomic, strong) UITextField* tfInput;
 
 @property (nonatomic) float tagWidht;//default
 @property (nonatomic) float tagHeight;//default
@@ -68,6 +70,7 @@ alpha:1.0]
 @property (nonatomic, strong) UIColor* colorTagBg;
 @property (nonatomic, strong) UIColor* colorInputBg;
 @property (nonatomic, strong) UIColor* colorInputBoard;
+
 
 - (void)addTags:(NSArray *)tags;
 -(void)layoutTagviews;
