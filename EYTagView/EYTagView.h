@@ -37,12 +37,17 @@ alpha:1.0]
 #define LOGNOTHING(format,value)
 #endif
 
+@class EYTagView;
+@protocol EYTagViewDelegate <NSObject>
 
+@optional
+-(void)heightDidChangedTagView:(EYTagView*)tagView;
 
-
+@end
 
 @interface EYTagView : UIView
+@property (nonatomic, strong) id<EYTagViewDelegate> delegate;
 
 - (void)addTags:(NSArray *)tags;
-
+-(void)layoutTagviews;
 @end

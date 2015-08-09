@@ -9,7 +9,7 @@
 #import "ViewController.h"
 #import "EYTagView.h"
 
-@interface ViewController ()
+@interface ViewController ()<EYTagViewDelegate>
 @property (strong, nonatomic) IBOutlet EYTagView *tagView;
 
 @end
@@ -18,6 +18,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _tagView.translatesAutoresizingMaskIntoConstraints=YES;
+    _tagView.delegate=self;
+    
     [_tagView addTags:@[
                         @"111",
                         @"222",
@@ -30,12 +33,31 @@
                         @"阿斯顿发发生法士大夫",
                         @"撒的发",
                         @"阿是发放的",
+                        @"asdfasdf啊大法师",
+                        @"阿发",
+                        @"撒的发是否是地方萨菲阿Sa",
+                        @"发色发",
+                        @"额发我份",
+                        @"会计法",
+                        @"客人房交付给",
+                        @"ut6utfj大一点",
+                        @"考估计附加费",
+                        @"开房间风好大",
+                        @"人提交方法",
+                        @"i7uhft 代发货",
+                        @"放开眼界",
+                        @"7就仿佛",
+                        @"他附加费",
+                        @"丰台ifi7",
+                        @"iyiiuiui国防教育",
                         ]];
 }
 
 - (IBAction)layout:(id)sender {
-    [_tagView setNeedsLayout];
+    [_tagView layoutTagviews];
 }
 
-
+-(void)heightDidChangedTagView:(EYTagView *)tagView{
+    NSLog(@"heightDidChangedTagView");
+}
 @end
