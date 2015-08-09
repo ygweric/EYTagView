@@ -21,6 +21,16 @@
     _tagView.translatesAutoresizingMaskIntoConstraints=YES;
     _tagView.delegate=self;
     
+    _tagView.colorTag=COLORRGB(0xffffff);
+    _tagView.colorTagBg=COLORRGB(0x2ab44e);
+    _tagView.colorInput=COLORRGB(0x2ab44e);
+    _tagView.colorInputBg=COLORRGB(0xffffff);
+    _tagView.colorInputPlaceholder=COLORRGB(0x2ab44e);
+    _tagView.backgroundColor=COLORRGB(0xffffff);
+    _tagView.colorInputBoard=COLORRGB(0x2ab44e);
+//    _tagView.=COLORRGB(0x);
+    
+    
     [_tagView addTags:@[
                         @"111",
                         @"222",

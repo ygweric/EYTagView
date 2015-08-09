@@ -48,6 +48,27 @@ alpha:1.0]
 @interface EYTagView : UIView
 @property (nonatomic, strong) id<EYTagViewDelegate> delegate;
 
+@property (nonatomic) float tagWidht;//default
+@property (nonatomic) float tagHeight;//default
+
+@property (nonatomic) float viewMaxHeight;
+
+@property (nonatomic) CGSize tagPaddingSize;//top & left
+@property (nonatomic) CGSize textPaddingSize;
+
+
+@property (nonatomic, strong) UIFont* fontTag;
+@property (nonatomic, strong) UIFont* fontInput;
+
+
+@property (nonatomic, strong) UIColor* colorTag;
+@property (nonatomic, strong) UIColor* colorInput;
+@property (nonatomic, strong) UIColor* colorInputPlaceholder;
+
+@property (nonatomic, strong) UIColor* colorTagBg;
+@property (nonatomic, strong) UIColor* colorInputBg;
+@property (nonatomic, strong) UIColor* colorInputBoard;
+
 - (void)addTags:(NSArray *)tags;
 -(void)layoutTagviews;
 @end

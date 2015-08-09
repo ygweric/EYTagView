@@ -37,26 +37,7 @@
 @property (nonatomic, strong) NSMutableArray *tagButtons;//array of alll tag button
 @property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
 
-@property (nonatomic) float tagWidht;//default
-@property (nonatomic) float tagHeight;//default
 
-@property (nonatomic) float viewMaxHeight;
-
-//@property (nonatomic) UIEdgeInsets tagEdgeInsets;
-@property (nonatomic) CGSize tagPaddingSize;//top & left
-//@property (nonatomic) UIEdgeInsets textEdgeInsets;
-@property (nonatomic) CGSize textPaddingSize;
-
-
-@property (nonatomic, strong) UIFont* fontTag;
-@property (nonatomic, strong) UIFont* fontInput;
-
-
-@property (nonatomic, strong) UIColor* colorTag;
-@property (nonatomic, strong) UIColor* colorInput;
-
-@property (nonatomic, strong) UIColor* colorTagBg;
-@property (nonatomic, strong) UIColor* colorInputBg;
 
 @property (nonatomic) UITapGestureRecognizer *gestureRecognizer;
 
@@ -89,18 +70,18 @@
 
 - (void)commonInit
 {
-    _tagWidht=50;
+    _tagWidht=55;
     _tagHeight=15;
-//    _tagEdgeInsets=UIEdgeInsetsMake(3, 3, 3, 3);
-//    _textEdgeInsets=UIEdgeInsetsMake(3, 3, 3, 3);
     _tagPaddingSize=CGSizeMake(3, 3);
     _textPaddingSize=CGSizeMake(0, 3);
     _fontTag=[UIFont systemFontOfSize:12];
     _fontInput=[UIFont systemFontOfSize:12];
     _colorTag=COLORRGB(0x00ff00);
     _colorInput=COLORRGB(0x00ffc0);
+    _colorInputPlaceholder=COLORRGB(0x00ffc0);
     _colorTagBg=COLORRGB(0xaaaaaa);
     _colorInputBg=COLORRGB(0xbbbbbb);
+    _colorInputBoard=COLORRGB(0xff0000);
     _viewMaxHeight=160;
     
     
@@ -111,7 +92,7 @@
         UIScrollView* sv = [[UIScrollView alloc] initWithFrame:self.bounds];
         sv.contentSize=sv.frame.size;
         sv.contentSize=CGSizeMake(sv.frame.size.width, 600);
-        sv.indicatorStyle=UIScrollViewIndicatorStyleBlack;
+        sv.indicatorStyle=UIScrollViewIndicatorStyleDefault;
         sv.backgroundColor = COLORRGBA(0xfff000, 1);
         sv.showsVerticalScrollIndicator = YES;
         sv.showsHorizontalScrollIndicator = NO;
@@ -121,11 +102,10 @@
     {
         UITextField* tf = [[EYTextField alloc] initWithFrame:CGRectMake(0, 0, _tagWidht, _tagHeight)];
         tf.autocorrectionType = UITextAutocorrectionTypeNo;
-        tf.backgroundColor=_colorInputBg;
-        tf.textColor=_colorInput;
-        tf.font=_fontInput;
         [tf addTarget:self action:@selector(textFieldDidChange:)forControlEvents:UIControlEventEditingChanged];
         tf.delegate = self;
+        tf.placeholder=@"add tag";
+      
         tf.returnKeyType = UIReturnKeyDone;
         [_svContainer addSubview:tf];
         _tfInput=tf;
@@ -167,7 +147,14 @@
     }
     //input view
     {
+        _tfInput.backgroundColor=_colorInputBg;
+        _tfInput.textColor=_colorInput;
+        _tfInput.font=_fontInput;
+        [_tfInput setValue:_colorInputPlaceholder forKeyPath:@"_placeholderLabel.textColor"];
+        
         _tfInput.layer.cornerRadius = _tfInput.frame.size.height * 0.5f;
+        _tfInput.layer.borderColor=_colorInputBoard.CGColor;
+        _tfInput.layer.borderWidth=1;
         {
             CGRect frame=_tfInput.frame;
             frame.size.width = [_tfInput.text sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + (_tfInput.layer.cornerRadius * 2.0f) + _textPaddingSize.width*2;
@@ -352,5 +339,8 @@
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer {
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
 }
-
+-(void)setBackgroundColor:(UIColor *)backgroundColor{
+    [super setBackgroundColor:backgroundColor];
+    _svContainer.backgroundColor=backgroundColor;
+}
 @end
