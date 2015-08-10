@@ -10,14 +10,14 @@ EYTagView is a custome view simulate iOS Evernote's tag editing view.
 
 1\ Show unlimited number of tags in EYTagView with bricks layout
 
-![scrollable.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/1scrollable.gif)
+![scrollable.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/screenshots/1scrollable.gif)
 
 
 2\ Can add and delete tag free
 
 3\ Can disable editing tags if you want
 
-![scrollable.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/1editable.gif)
+![scrollable.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/screenshots/1editable.gif)
 
 4\ You can donfig almost all color and font as yo want
 
@@ -60,7 +60,7 @@ If you are using autolayout, you dan do the following:
 2\ addd a new UIView to the _vContainer, change the Class to `EYTagView`, we needed it as "_tagView".
 
 3\ set _tagView's constransts like that:
-![constrants.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/1constrants.gif)
+![constrants.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/screenshots/1constrants.gif)
 
 4\ set
 ```
