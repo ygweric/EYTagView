@@ -60,7 +60,7 @@ If you are using autolayout, you dan do the following:
 2\ addd a new UIView to the _vContainer, change the Class to `EYTagView`, we needed it as "_tagView".
 
 3\ set _tagView's constransts like that:
-![constrants.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/screenshots/1constrants.gif)
+![constrants.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/screenshots/1constrants.png)
 
 4\ set
 ```
