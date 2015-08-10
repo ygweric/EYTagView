@@ -45,10 +45,16 @@ alpha:1.0]
 
 @end
 
+typedef enum{
+    EYTagView_Type_Edit,
+    EYTagView_Type_NO_Edit,
+}EYTagView_Type;
+
 @interface EYTagView : UIView
 @property (nonatomic, strong) id<EYTagViewDelegate> delegate;
 @property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
 @property (nonatomic, strong) UITextField* tfInput;
+@property (nonatomic) EYTagView_Type type;//default edit
 
 @property (nonatomic) float tagWidht;//default
 @property (nonatomic) float tagHeight;//default

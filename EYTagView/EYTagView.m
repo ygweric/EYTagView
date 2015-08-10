@@ -70,6 +70,7 @@
 
 - (void)commonInit
 {
+    _type=EYTagView_Type_Edit;
     _tagWidht=55;
     _tagHeight=15;
     _tagPaddingSize=CGSizeMake(3, 3);
@@ -146,7 +147,8 @@
         }
     }
     //input view
-    {
+    _tfInput.hidden=(_type==EYTagView_Type_NO_Edit);
+    if (_type==EYTagView_Type_Edit) {
         _tfInput.backgroundColor=_colorInputBg;
         _tfInput.textColor=_colorInput;
         _tfInput.font=_fontInput;
@@ -273,6 +275,9 @@
 
 
 -(void)showTagButtonMenu:(UIButton*)tagButton{
+    if (_type==EYTagView_Type_NO_Edit) {
+        return;
+    }
     [self becomeFirstResponder];
     _editingTagIndex=[_tagButtons indexOfObject:tagButton];
     CGRect buttonFrame=tagButton.frame;
@@ -354,8 +359,13 @@
 - (void)handlePan:(UIPanGestureRecognizer *)recognizer {
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
 }
+#pragma mark getter & setter
 -(void)setBackgroundColor:(UIColor *)backgroundColor{
     [super setBackgroundColor:backgroundColor];
     _svContainer.backgroundColor=backgroundColor;
+}
+-(void)setType:(EYTagView_Type)type{
+    _type=type;
+    [self layoutTagviews];
 }
 @end

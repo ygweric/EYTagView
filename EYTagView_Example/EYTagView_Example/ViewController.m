@@ -71,4 +71,7 @@
 -(void)heightDidChangedTagView:(EYTagView *)tagView{
     NSLog(@"heightDidChangedTagView");
 }
+- (IBAction)toggleType:(UISwitch*)sender {
+    _tagView.type=sender.on?EYTagView_Type_Edit:EYTagView_Type_NO_Edit;
+}
 @end
