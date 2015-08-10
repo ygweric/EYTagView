@@ -77,14 +77,14 @@
     _textPaddingSize=CGSizeMake(0, 3);
     _fontTag=[UIFont systemFontOfSize:12];
     _fontInput=[UIFont systemFontOfSize:12];
-    _colorTag=COLORRGB(0x00ff00);
-    _colorInput=COLORRGB(0x00ffc0);
-    _colorInputPlaceholder=COLORRGB(0x00ffc0);
-    _colorTagBg=COLORRGB(0xaaaaaa);
+    _colorTag=COLORRGB(0xffffff);
+    _colorInput=COLORRGB(0x2ab44e);
+    _colorInputPlaceholder=COLORRGB(0x2ab44e);
+    _colorTagBg=COLORRGB(0x2ab44e);
     _colorInputBg=COLORRGB(0xbbbbbb);
-    _colorInputBoard=COLORRGB(0xff0000);
-    _viewMaxHeight=160;
-    
+    _colorInputBoard=COLORRGB(0x2ab44e);
+    _viewMaxHeight=130;
+    self.backgroundColor=COLORRGB(0xffffff);
     
     _tagButtons=[NSMutableArray new];
     _tagStrings=[NSMutableArray new];
@@ -94,7 +94,7 @@
         sv.contentSize=sv.frame.size;
         sv.contentSize=CGSizeMake(sv.frame.size.width, 600);
         sv.indicatorStyle=UIScrollViewIndicatorStyleDefault;
-        sv.backgroundColor = COLORRGBA(0xfff000, 1);
+        sv.backgroundColor = self.backgroundColor;
         sv.showsVerticalScrollIndicator = YES;
         sv.showsHorizontalScrollIndicator = NO;
         [self addSubview:sv];
