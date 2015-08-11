@@ -47,12 +47,13 @@ alpha:1.0]
 
 typedef enum{
     EYTagView_Type_Edit,
-    EYTagView_Type_NO_Edit,
+    EYTagView_Type_Display,
+    EYTagView_Type_Single_Selected,
+    EYTagView_Type_Multi_Selected,
 }EYTagView_Type;
 
 @interface EYTagView : UIView
 @property (nonatomic, strong) id<EYTagViewDelegate> delegate;
-@property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
 @property (nonatomic, strong) UITextField* tfInput;
 @property (nonatomic) EYTagView_Type type;//default edit
 
@@ -79,5 +80,8 @@ typedef enum{
 
 
 - (void)addTags:(NSArray *)tags;
+- (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags;
 -(void)layoutTagviews;
+-(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected;
+-(NSMutableArray *)tagStrings;
 @end

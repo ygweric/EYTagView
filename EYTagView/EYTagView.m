@@ -12,6 +12,28 @@
 
 #import "EYTagView.h"
 
+@interface EYCheckBoxButton :UIButton
+@property (nonatomic, strong) UIColor* colorBg;
+@property (nonatomic, strong) UIColor* colorText;
+@end
+
+@implementation EYCheckBoxButton
+-(void)setSelected:(BOOL)selected{
+    [super setSelected:selected];
+    if (selected) {
+        [self setBackgroundColor:_colorBg];
+        [self setTitleColor:_colorText forState:UIControlStateSelected];
+    } else {
+        [self setBackgroundColor:_colorText];
+        self.layer.borderColor=_colorBg.CGColor;
+        self.layer.borderWidth=1;
+        [self setTitleColor:_colorBg forState:UIControlStateNormal];
+    }
+    [self setNeedsDisplay];
+}
+@end
+
+
 @interface EYTextField : UITextField
 
 @end
@@ -35,6 +57,8 @@
 @property (nonatomic, strong) UIScrollView* svContainer;
 
 @property (nonatomic, strong) NSMutableArray *tagButtons;//array of alll tag button
+@property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
+@property (nonatomic, strong) NSMutableArray *tagStringsSelected;
 
 
 
@@ -88,6 +112,7 @@
     
     _tagButtons=[NSMutableArray new];
     _tagStrings=[NSMutableArray new];
+    _tagStringsSelected=[NSMutableArray new];
     
     {
         UIScrollView* sv = [[UIScrollView alloc] initWithFrame:self.bounds];
@@ -118,13 +143,57 @@
     }
 }
 #pragma mark -
+-(NSMutableArray *)tagStrings{
+      switch (_type) {
+        case EYTagView_Type_Edit:
+        {
+            return _tagStrings;
+        }
+            break;
+        case EYTagView_Type_Display:
+        {
+            return nil;
+        }
+            break;
+        case EYTagView_Type_Single_Selected:
+        {
+            [_tagStringsSelected removeAllObjects];
+            for (EYCheckBoxButton* button in _tagButtons) {
+                if (button.selected) {
+                    [_tagStringsSelected addObject:button.titleLabel.text];
+                    break;
+                }
+            }
+            return _tagStringsSelected;
+        }
+            break;
+        case EYTagView_Type_Multi_Selected:
+        {
+            [_tagStringsSelected removeAllObjects];
+            for (EYCheckBoxButton* button in _tagButtons) {
+                if (button.selected) {
+                    [_tagStringsSelected addObject:button.titleLabel.text];
+                }
+            }
+            return _tagStringsSelected;
+        }
+              break;
+        default:
+        {
+            
+        }
+            break;
+    }
+    return nil;
+}
+
 
 -(void)layoutTagviews{
     float oldContentHeight=_svContainer.contentSize.height;
     float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height;
     
     for (int i=0; i<_tagButtons.count; i++) {
-        UIButton* tagButton=_tagButtons[i];
+        EYCheckBoxButton* tagButton=_tagButtons[i];
         CGRect frame=tagButton.frame;
         
         if (tagButton.frame.size.width+_tagPaddingSize.width*2>_svContainer.contentSize.width) {
@@ -147,7 +216,7 @@
         }
     }
     //input view
-    _tfInput.hidden=(_type==EYTagView_Type_NO_Edit);
+    _tfInput.hidden=(_type!=EYTagView_Type_Edit);
     if (_type==EYTagView_Type_Edit) {
         _tfInput.backgroundColor=_colorInputBg;
         _tfInput.textColor=_colorInput;
@@ -209,9 +278,12 @@
     }
 }
 
-- (UIButton *)tagButtonWithTag:(NSString *)tag
+- (EYCheckBoxButton *)tagButtonWithTag:(NSString *)tag
 {
-    UIButton *tagBtn = [[UIButton alloc] init];
+    EYCheckBoxButton *tagBtn = [[EYCheckBoxButton alloc] init];
+    tagBtn.colorBg=_colorTagBg;
+    tagBtn.colorText=_colorTag;
+    tagBtn.selected=YES;
     [tagBtn.titleLabel setFont:_fontTag];
     [tagBtn setBackgroundColor:_colorTagBg];
     [tagBtn setTitleColor:_colorTag forState:UIControlStateNormal];
@@ -227,8 +299,9 @@
     tagBtn.frame=btnFrame;
     return tagBtn;
 }
-- (void)handlerTagButtonEvent:(UIButton*)sender
+- (void)handlerTagButtonEvent:(EYCheckBoxButton*)sender
 {
+    
 }
 #pragma mark action
 
@@ -239,17 +312,31 @@
     }
     [self layoutTagviews];
 }
-
+- (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags{
+    [self addTags:tags];
+    self.tagStringsSelected=[NSMutableArray arrayWithArray:selectedTags];
+}
 - (void)addTagToLast:(NSString *)tag{
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
     if (result.count == 0)
     {
         [_tagStrings addObject:tag];
         
-        UIButton* tagButton=[self tagButtonWithTag:tag];
-        [tagButton addTarget:self action:@selector(showTagButtonMenu:) forControlEvents:UIControlEventTouchUpInside];
+        EYCheckBoxButton* tagButton=[self tagButtonWithTag:tag];
+        [tagButton addTarget:self action:@selector(handlerButtonAction:) forControlEvents:UIControlEventTouchUpInside];
         [_svContainer addSubview:tagButton];
         [_tagButtons addObject:tagButton];
+        
+        switch (_type) {
+            case EYTagView_Type_Single_Selected:
+            case EYTagView_Type_Multi_Selected:
+            {
+                tagButton.selected=NO;
+            }
+                break;
+            default:
+                break;
+        }
     }
     [self layoutTagviews];
 }
@@ -274,22 +361,48 @@
 }
 
 
--(void)showTagButtonMenu:(UIButton*)tagButton{
-    if (_type==EYTagView_Type_NO_Edit) {
-        return;
+-(void)handlerButtonAction:(EYCheckBoxButton*)tagButton{
+    switch (_type) {
+        case EYTagView_Type_Edit:
+        {
+            [self becomeFirstResponder];
+            _editingTagIndex=[_tagButtons indexOfObject:tagButton];
+            CGRect buttonFrame=tagButton.frame;
+            buttonFrame.size.height-=5;
+            
+            UIMenuController *menuController = [UIMenuController sharedMenuController];
+            UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(deleteItemClicked:)];
+            
+            NSAssert([self becomeFirstResponder], @"Sorry, UIMenuController will not work with %@ since it cannot become first responder", self);
+            [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
+            [menuController setTargetRect:buttonFrame inView:_svContainer];
+            [menuController setMenuVisible:YES animated:YES];
+        }
+            break;
+        case EYTagView_Type_Single_Selected:
+        {
+            if (tagButton.selected) {
+                tagButton.selected=NO;
+            }else{
+                for (EYCheckBoxButton* button in _tagButtons) {
+                    button.selected=NO;
+                }
+                tagButton.selected=YES;
+            }
+        }
+            break;
+        case EYTagView_Type_Multi_Selected:
+        {
+            tagButton.selected=!tagButton.selected;
+        }
+            break;
+        default:
+        {
+            
+        }
+            break;
     }
-    [self becomeFirstResponder];
-    _editingTagIndex=[_tagButtons indexOfObject:tagButton];
-    CGRect buttonFrame=tagButton.frame;
-    buttonFrame.size.height-=5;
     
-    UIMenuController *menuController = [UIMenuController sharedMenuController];
-    UIMenuItem *resetMenuItem = [[UIMenuItem alloc] initWithTitle:@"Delete" action:@selector(deleteItemClicked:)];
-    
-    NSAssert([self becomeFirstResponder], @"Sorry, UIMenuController will not work with %@ since it cannot become first responder", self);
-    [menuController setMenuItems:[NSArray arrayWithObject:resetMenuItem]];
-    [menuController setTargetRect:buttonFrame inView:_svContainer];
-    [menuController setMenuVisible:YES animated:YES];
 }
 
 
@@ -366,6 +479,72 @@
 }
 -(void)setType:(EYTagView_Type)type{
     _type=type;
+    switch (_type) {
+        case EYTagView_Type_Edit:
+        {
+            for (UIButton* button in _tagButtons) {
+                button.selected=YES;
+            }
+        }
+            break;
+        case EYTagView_Type_Display:
+        {
+            for (UIButton* button in _tagButtons) {
+                button.selected=YES;
+            }
+        }
+            break;
+        case EYTagView_Type_Single_Selected:
+        {
+            for (UIButton* button in _tagButtons) {
+                button.selected=[_tagStringsSelected containsObject:button.titleLabel.text];
+            }
+        }
+            break;
+        case EYTagView_Type_Multi_Selected:
+        {
+            for (UIButton* button in _tagButtons) {
+                button.selected=[_tagStringsSelected containsObject:button.titleLabel.text];
+            }
+        }
+            break;
+        default:
+        {
+            
+        }
+            break;
+    }
     [self layoutTagviews];
 }
+-(void)setColorTagBg:(UIColor *)colorTagBg{
+    _colorTagBg=colorTagBg;
+    for (EYCheckBoxButton* button in _tagButtons) {
+        button.colorBg=colorTagBg;
+    }
+}
+-(void)setColorTag:(UIColor *)colorTag{
+    _colorTag=colorTag;
+    for (EYCheckBoxButton* button in _tagButtons) {
+        button.colorText=colorTag;
+    }
+}
+-(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected{
+    _tagStringsSelected=tagStringsSelected;
+    switch (_type) {
+        case EYTagView_Type_Single_Selected:
+        case EYTagView_Type_Multi_Selected:
+        {
+            for (UIButton* button in _tagButtons) {
+                button.selected=[tagStringsSelected containsObject:button.titleLabel.text];
+            }
+        }
+            break;
+        default:
+        {
+            
+        }
+            break;
+    }
+}
+
 @end

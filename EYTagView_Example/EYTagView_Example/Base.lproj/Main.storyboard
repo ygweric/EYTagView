@@ -45,39 +45,30 @@
                                     <constraint firstAttribute="width" priority="999" constant="250" id="zYA-IO-5jP"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1h1-S6-P4t">
-                                <rect key="frame" x="105" y="393" width="42" height="30"/>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gko-4U-5Zb">
+                                <rect key="frame" x="21" y="400" width="250" height="29"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="gyr-S3-Thk"/>
-                                    <constraint firstAttribute="width" constant="42" id="tKs-K1-yiq"/>
+                                    <constraint firstAttribute="height" constant="28" id="kuD-Hz-RGc"/>
+                                    <constraint firstAttribute="width" constant="250" id="ogL-Xc-2sF"/>
                                 </constraints>
-                                <state key="normal" title="layout">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                                <segments>
+                                    <segment title="tag edit"/>
+                                    <segment title="tag show"/>
+                                    <segment title="tag radio"/>
+                                    <segment title="tag checkbox"/>
+                                </segments>
                                 <connections>
-                                    <action selector="layout:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="w3F-4N-Ecx"/>
+                                    <action selector="handlerSegmentAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="8PQ-Jg-rWl"/>
                                 </connections>
-                            </button>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C9Y-aS-IC4">
-                                <rect key="frame" x="162" y="437" width="51" height="31"/>
-                                <connections>
-                                    <action selector="toggleType:" destination="vXZ-lx-hvc" eventType="valueChanged" id="MVT-4z-0IN"/>
-                                </connections>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="whether can edit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ajo-qW-DSa">
-                                <rect key="frame" x="19" y="442" width="128" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="1h1-S6-P4t" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="89" id="EFp-51-ftv"/>
+                            <constraint firstItem="gko-4U-5Zb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="5db-jw-eVf"/>
                             <constraint firstItem="LVG-rX-BcK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="89" id="H9Y-Gc-EGd"/>
                             <constraint firstItem="tbd-hY-ozg" firstAttribute="top" secondItem="LVG-rX-BcK" secondAttribute="bottom" constant="13" id="JCD-dz-tmO"/>
                             <constraint firstItem="LVG-rX-BcK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="7" id="OSz-EU-WP8"/>
-                            <constraint firstItem="1h1-S6-P4t" firstAttribute="top" secondItem="tbd-hY-ozg" secondAttribute="bottom" constant="32" id="dux-Ri-efP"/>
+                            <constraint firstItem="gko-4U-5Zb" firstAttribute="top" secondItem="tbd-hY-ozg" secondAttribute="bottom" constant="39" id="eQm-Ea-v2Z"/>
                             <constraint firstItem="tbd-hY-ozg" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="wVq-ub-mcR"/>
                         </constraints>
                     </view>

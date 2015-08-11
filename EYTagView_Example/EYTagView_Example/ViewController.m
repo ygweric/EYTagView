@@ -71,6 +71,36 @@
     NSLog(@"heightDidChangedTagView");
 }
 - (IBAction)toggleType:(UISwitch*)sender {
-    _tagView.type=sender.on?EYTagView_Type_Edit:EYTagView_Type_NO_Edit;
+    _tagView.type=sender.on?EYTagView_Type_Edit:EYTagView_Type_Display;
+}
+- (IBAction)handlerSegmentAction:(UISegmentedControl*)sender {
+    _tagView.type=(EYTagView_Type)sender.selectedSegmentIndex;
+    switch (sender.selectedSegmentIndex) {
+        case 0:
+        {
+            
+        }
+            break;
+        case 1:
+        {
+            
+        }
+            break;
+        case 2:
+        {
+            
+        }
+            break;
+        case 3:
+        {
+            
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
+    
 }
 @end
