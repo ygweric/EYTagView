@@ -8,18 +8,18 @@ EYTagView is a custome view simulate iOS Evernote's tag editing view.
 
 ###What can EYTagView do ???
 
-1\ Show unlimited number of tags in EYTagView with bricks layout
+1. Show unlimited number of tags in EYTagView with bricks layout
 
 ![scrollable.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/screenshots/1scrollable.gif)
 
 
-2\ Can add and delete tag free
+2. Can add and delete tag free
 
-3\ Can disable editing tags if you want
+3. Can disable editing tags if you want
 
 ![scrollable.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/screenshots/1editable.gif)
 
-4\ You can donfig almost all color and font as yo want
+4. You can donfig almost all color and font as yo want
 
 ```
 _tagView.colorTag=COLORRGB(0xffffff);
@@ -56,13 +56,11 @@ in `EYTagViewDelegate` ,the method `heightDidChangedTagView:(EYTagView *)` wil b
 
 If you are using autolayout, you dan do the following:
 
-1\ in xib or storyboard, create a empty UIView as the tagview container(`_vContainer`), add constrants width and height as you want. but set their properity to "999".
-2\ addd a new UIView to the _vContainer, change the Class to `EYTagView`, we needed it as "_tagView".
+1. layout you view in the xib or storyboard as normal. 
 
-3\ set _tagView's constransts like that:
-![constrants.gif](https://raw.githubusercontent.com/ygweric/EYTagView/master/screenshots/1constrants.png)
+2. set the height and width of EYTagView to a constant value, but set the priority to 999, or less
 
-4\ set
+3. set
 ```
 _tagView.translatesAutoresizingMaskIntoConstraints=YES;
 ```
