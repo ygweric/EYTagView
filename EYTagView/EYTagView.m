@@ -11,6 +11,7 @@
 
 
 #import "EYTagView.h"
+#import "EYTextField.h"
 
 @interface EYCheckBoxButton :UIButton
 @property (nonatomic, strong) UIColor* colorBg;
@@ -31,24 +32,6 @@
     }
     [self setNeedsDisplay];
 }
-@end
-
-
-@interface EYTextField : UITextField
-
-@end
-@implementation EYTextField
-
-// placeholder position
-- (CGRect)textRectForBounds:(CGRect)bounds {
-    return CGRectInset( bounds , 6 , 0 );
-}
-
-// text position
-- (CGRect)editingRectForBounds:(CGRect)bounds {
-    return CGRectInset( bounds , 6 , 0 );
-}
-
 @end
 
 
@@ -95,12 +78,12 @@
 - (void)commonInit
 {
     _type=EYTagView_Type_Edit;
-    _tagWidht=55;
-    _tagHeight=15;
-    _tagPaddingSize=CGSizeMake(3, 3);
+    _tagWidht=75;
+    _tagHeight=18;
+    _tagPaddingSize=CGSizeMake(6, 6);
     _textPaddingSize=CGSizeMake(0, 3);
-    _fontTag=[UIFont systemFontOfSize:12];
-    _fontInput=[UIFont systemFontOfSize:12];
+    _fontTag=[UIFont systemFontOfSize:14];
+    _fontInput=[UIFont systemFontOfSize:14];
     _colorTag=COLORRGB(0xffffff);
     _colorInput=COLORRGB(0x2ab44e);
     _colorInputPlaceholder=COLORRGB(0x2ab44e);
