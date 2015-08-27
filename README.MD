@@ -3,6 +3,9 @@
 ------
 
 EYTagView is a custome view simulate iOS Evernote's tag editing view.
+---
+
+####EYTagView is included in a more powerful project [EYPopupView](https://github.com/ygweric/EYPopupView)
 
 ---
 
