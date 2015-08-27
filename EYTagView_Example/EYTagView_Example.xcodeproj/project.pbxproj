@@ -15,6 +15,7 @@
 		5FE358D61B770259007D66B3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5FE358D51B770259007D66B3 /* Images.xcassets */; };
 		5FE358D91B770259007D66B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FE358D71B770259007D66B3 /* LaunchScreen.xib */; };
 		5FE358E51B770259007D66B3 /* EYTagView_ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE358E41B770259007D66B3 /* EYTagView_ExampleTests.m */; };
+		5FE9C34C1B8F542B00868E32 /* EYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9C34B1B8F542B00868E32 /* EYTextField.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,6 +44,8 @@
 		5FE358DE1B770259007D66B3 /* EYTagView_ExampleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EYTagView_ExampleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		5FE358E31B770259007D66B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5FE358E41B770259007D66B3 /* EYTagView_ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EYTagView_ExampleTests.m; sourceTree = "<group>"; };
+		5FE9C34A1B8F542B00868E32 /* EYTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EYTextField.h; sourceTree = "<group>"; };
+		5FE9C34B1B8F542B00868E32 /* EYTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EYTextField.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +71,8 @@
 			children = (
 				5F3FDF9A1B77248B00DE721B /* EYTagView.h */,
 				5F3FDF9B1B77248B00DE721B /* EYTagView.m */,
+				5FE9C34A1B8F542B00868E32 /* EYTextField.h */,
+				5FE9C34B1B8F542B00868E32 /* EYTextField.m */,
 			);
 			name = EYTagView;
 			path = ../EYTagView;
@@ -233,6 +238,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5FE9C34C1B8F542B00868E32 /* EYTextField.m in Sources */,
 				5FE358D11B770259007D66B3 /* ViewController.m in Sources */,
 				5FE358CE1B770259007D66B3 /* AppDelegate.m in Sources */,
 				5FE358CB1B770259007D66B3 /* main.m in Sources */,

@@ -28,7 +28,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGj-lX-OhZ" customClass="EYTagView">
-                                <rect key="frame" x="56" y="56" width="230" height="278"/>
+                                <rect key="frame" x="56" y="68" width="230" height="278"/>
                                 <color key="backgroundColor" red="0.87369791666666663" green="0.87369791666666663" blue="0.87369791666666663" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="PHz-Hr-tsV"/>
@@ -64,10 +64,10 @@
                         <constraints>
                             <constraint firstItem="gko-4U-5Zb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="5db-jw-eVf"/>
                             <constraint firstItem="gko-4U-5Zb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="5" id="9Pi-ax-9rv"/>
-                            <constraint firstItem="gko-4U-5Zb" firstAttribute="top" secondItem="sGj-lX-OhZ" secondAttribute="bottom" constant="5" id="9bD-fD-BaD"/>
+                            <constraint firstItem="gko-4U-5Zb" firstAttribute="top" secondItem="sGj-lX-OhZ" secondAttribute="bottom" constant="20" id="9bD-fD-BaD"/>
                             <constraint firstItem="LVG-rX-BcK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="89" id="H9Y-Gc-EGd"/>
                             <constraint firstItem="LVG-rX-BcK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="7" id="OSz-EU-WP8"/>
-                            <constraint firstItem="sGj-lX-OhZ" firstAttribute="top" secondItem="LVG-rX-BcK" secondAttribute="bottom" constant="8" id="bmj-MH-dKS"/>
+                            <constraint firstItem="sGj-lX-OhZ" firstAttribute="top" secondItem="LVG-rX-BcK" secondAttribute="bottom" constant="20" id="bmj-MH-dKS"/>
                             <constraint firstItem="sGj-lX-OhZ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="56" id="brq-g0-l7z"/>
                         </constraints>
                         <variation key="default">

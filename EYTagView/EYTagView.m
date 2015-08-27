@@ -38,15 +38,10 @@
 @interface EYTagView()<UITextFieldDelegate>
 
 @property (nonatomic, strong) UIScrollView* svContainer;
-
 @property (nonatomic, strong) NSMutableArray *tagButtons;//array of alll tag button
 @property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
 @property (nonatomic, strong) NSMutableArray *tagStringsSelected;
 
-
-
-
-@property (nonatomic) UITapGestureRecognizer *gestureRecognizer;
 
 @end
 
@@ -120,9 +115,9 @@
         _tfInput=tf;
     }
     {
-        _gestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlePan:)];
-        _gestureRecognizer.numberOfTapsRequired=1;
-        [self addGestureRecognizer:_gestureRecognizer];
+        UITapGestureRecognizer* panGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlerTapGesture:)];
+        panGestureRecognizer.numberOfTapsRequired=1;
+        [self addGestureRecognizer:panGestureRecognizer];
     }
 }
 #pragma mark -
@@ -452,8 +447,21 @@
 - (BOOL) canBecomeFirstResponder {
     return YES;
 }
-- (void)handlePan:(UIPanGestureRecognizer *)recognizer {
+- (void)handlerTapGesture:(UIPanGestureRecognizer *)recognizer {
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
+    if (_tfInput.isFirstResponder
+        && _type==EYTagView_Type_Edit
+        && _tfInput.text) {
+        NSString* pureStr=[_tfInput.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        if (pureStr
+            && ![pureStr isEqualToString:@""]) {
+            [self addTagToLast:pureStr];
+            _tfInput.text=nil;
+            [self layoutTagviews];
+            
+        }
+        
+    }
 }
 #pragma mark getter & setter
 -(void)setBackgroundColor:(UIColor *)backgroundColor{
