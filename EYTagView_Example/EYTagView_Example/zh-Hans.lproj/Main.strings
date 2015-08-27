@@ -1,0 +1,15 @@
+
+/* Class = "UILabel"; text = "auto layout test"; ObjectID = "LVG-rX-BcK"; */
+"LVG-rX-BcK.text" = "auto layout test";
+
+/* Class = "UISegmentedControl"; gko-4U-5Zb.segmentTitles[0] = "tag edit"; ObjectID = "gko-4U-5Zb"; */
+"gko-4U-5Zb.segmentTitles[0]" = "tag edit";
+
+/* Class = "UISegmentedControl"; gko-4U-5Zb.segmentTitles[1] = "tag show"; ObjectID = "gko-4U-5Zb"; */
+"gko-4U-5Zb.segmentTitles[1]" = "tag show";
+
+/* Class = "UISegmentedControl"; gko-4U-5Zb.segmentTitles[2] = "radio"; ObjectID = "gko-4U-5Zb"; */
+"gko-4U-5Zb.segmentTitles[2]" = "radio";
+
+/* Class = "UISegmentedControl"; gko-4U-5Zb.segmentTitles[3] = "checkbox"; ObjectID = "gko-4U-5Zb"; */
+"gko-4U-5Zb.segmentTitles[3]" = "checkbox";

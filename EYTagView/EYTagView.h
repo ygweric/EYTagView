@@ -5,6 +5,9 @@
 //  Created by ericyang on 8/9/15.
 //  Copyright (c) 2015 Eric Yang. All rights reserved.
 //
+//
+//  Current Version Time: 2015-08-27
+//
 
 #import <UIKit/UIKit.h>
 
@@ -57,7 +60,7 @@ typedef enum{
 @property (nonatomic, strong) UITextField* tfInput;
 @property (nonatomic) EYTagView_Type type;//default edit
 
-@property (nonatomic) float tagWidht;//default
+
 @property (nonatomic) float tagHeight;//default
 
 @property (nonatomic) float viewMaxHeight;

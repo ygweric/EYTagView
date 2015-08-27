@@ -16,6 +16,7 @@
 		5FE358D91B770259007D66B3 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5FE358D71B770259007D66B3 /* LaunchScreen.xib */; };
 		5FE358E51B770259007D66B3 /* EYTagView_ExampleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE358E41B770259007D66B3 /* EYTagView_ExampleTests.m */; };
 		5FE9C34C1B8F542B00868E32 /* EYTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 5FE9C34B1B8F542B00868E32 /* EYTextField.m */; };
+		5FE9C3541B8F5D4300868E32 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5FE9C3561B8F5D4300868E32 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +47,10 @@
 		5FE358E41B770259007D66B3 /* EYTagView_ExampleTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EYTagView_ExampleTests.m; sourceTree = "<group>"; };
 		5FE9C34A1B8F542B00868E32 /* EYTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EYTextField.h; sourceTree = "<group>"; };
 		5FE9C34B1B8F542B00868E32 /* EYTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EYTextField.m; sourceTree = "<group>"; };
+		5FE9C3521B8F5CD600868E32 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		5FE9C3531B8F5CD600868E32 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		5FE9C3551B8F5D4300868E32 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		5FE9C3571B8F5D4500868E32 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +105,7 @@
 		5FE358C71B770259007D66B3 /* EYTagView_Example */ = {
 			isa = PBXGroup;
 			children = (
+				5FE9C3561B8F5D4300868E32 /* Localizable.strings */,
 				5FE358CC1B770259007D66B3 /* AppDelegate.h */,
 				5FE358CD1B770259007D66B3 /* AppDelegate.m */,
 				5FE358CF1B770259007D66B3 /* ViewController.h */,
@@ -201,6 +207,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 5FE358BC1B770259007D66B3;
 			productRefGroup = 5FE358C61B770259007D66B3 /* Products */;
@@ -219,6 +226,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5FE358D41B770259007D66B3 /* Main.storyboard in Resources */,
+				5FE9C3541B8F5D4300868E32 /* Localizable.strings in Resources */,
 				5FE358D91B770259007D66B3 /* LaunchScreen.xib in Resources */,
 				5FE358D61B770259007D66B3 /* Images.xcassets in Resources */,
 			);
@@ -269,6 +277,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				5FE358D31B770259007D66B3 /* Base */,
+				5FE9C3521B8F5CD600868E32 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -277,8 +286,18 @@
 			isa = PBXVariantGroup;
 			children = (
 				5FE358D81B770259007D66B3 /* Base */,
+				5FE9C3531B8F5CD600868E32 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		5FE9C3561B8F5D4300868E32 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5FE9C3551B8F5D4300868E32 /* en */,
+				5FE9C3571B8F5D4500868E32 /* zh-Hans */,
+			);
+			name = Localizable.strings;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

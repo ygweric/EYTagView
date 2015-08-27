@@ -13,6 +13,10 @@
 #import "EYTagView.h"
 #import "EYTextField.h"
 
+#ifndef EYLOCALSTRING
+#define EYLOCALSTRING(STR) NSLocalizedString(STR, STR)
+#endif
+
 @interface EYCheckBoxButton :UIButton
 @property (nonatomic, strong) UIColor* colorBg;
 @property (nonatomic, strong) UIColor* colorText;
@@ -41,7 +45,6 @@
 @property (nonatomic, strong) NSMutableArray *tagButtons;//array of alll tag button
 @property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
 @property (nonatomic, strong) NSMutableArray *tagStringsSelected;
-
 
 @end
 
@@ -73,12 +76,11 @@
 - (void)commonInit
 {
     _type=EYTagView_Type_Edit;
-    _tagWidht=75;
     _tagHeight=18;
     _tagPaddingSize=CGSizeMake(6, 6);
     _textPaddingSize=CGSizeMake(0, 3);
     _fontTag=[UIFont systemFontOfSize:14];
-    _fontInput=[UIFont systemFontOfSize:14];
+    self.fontInput=[UIFont systemFontOfSize:14];
     _colorTag=COLORRGB(0xffffff);
     _colorInput=COLORRGB(0x2ab44e);
     _colorInputPlaceholder=COLORRGB(0x2ab44e);
@@ -104,11 +106,11 @@
         _svContainer=sv;
     }
     {
-        UITextField* tf = [[EYTextField alloc] initWithFrame:CGRectMake(0, 0, _tagWidht, _tagHeight)];
+        UITextField* tf = [[EYTextField alloc] initWithFrame:CGRectMake(0, 0, 0, _tagHeight)];
         tf.autocorrectionType = UITextAutocorrectionTypeNo;
         [tf addTarget:self action:@selector(textFieldDidChange:)forControlEvents:UIControlEventEditingChanged];
         tf.delegate = self;
-        tf.placeholder=@"add tag";
+        tf.placeholder=EYLOCALSTRING(@"Add Tag");
       
         tf.returnKeyType = UIReturnKeyDone;
         [_svContainer addSubview:tf];
@@ -207,7 +209,8 @@
         {
             CGRect frame=_tfInput.frame;
             frame.size.width = [_tfInput.text sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + (_tfInput.layer.cornerRadius * 2.0f) + _textPaddingSize.width*2;
-            frame.size.width=MAX(frame.size.width, _tagWidht);
+            //place holde width
+            frame.size.width=MAX(frame.size.width, [EYLOCALSTRING(@"Add Tag") sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + (_tfInput.layer.cornerRadius * 2.0f) + _textPaddingSize.width*2);
             _tfInput.frame=frame;
         }
         
@@ -408,7 +411,7 @@
     
     CGRect frame=_tfInput.frame;
     frame.size.width = [sting2 sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + (_tfInput.layer.cornerRadius * 2.0f) + _textPaddingSize.width*2;
-    frame.size.width=MAX(frame.size.width, _tagWidht);
+    frame.size.width=MAX(frame.size.width, [EYLOCALSTRING(@"Add Tag") sizeWithAttributes:@{NSFontAttributeName:_fontInput}].width + (_tfInput.layer.cornerRadius * 2.0f) + _textPaddingSize.width*2);
     
     if (frame.size.width+_tagPaddingSize.width*2>_svContainer.contentSize.width) {
         NSLog(@"!!!  _tfInput width tooooooooo large");
