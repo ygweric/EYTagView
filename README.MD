@@ -61,14 +61,13 @@ If you are using autolayout, you dan do the following:
 
 1. layout you view in the xib or storyboard as normal. 
 
-2. set the height and width of EYTagView to a constant value, but set the priority to 999, or less
+2. set the height and width of EYTagView to a constant value, but set the priority to <=249 ,which less that `Content Hugging priority 250`
 
-3. set
-```
-_tagView.translatesAutoresizingMaskIntoConstraints=YES;
-```
 
 Then the _vContainer's frame will change with _tagView.
 
 ---
 If you don't know how to use EYTagView well, you can check the example project or create an issue
+
+--
+###EYTagView not support TableViewCell, use Header/Footer or ScrollView instead
