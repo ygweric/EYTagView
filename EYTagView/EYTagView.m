@@ -40,7 +40,7 @@
 
 
 @interface EYTagView()<UITextFieldDelegate>
-@property (nonatomic) CGFloat newHeight;
+
 @property (nonatomic, strong) UIScrollView* svContainer;
 @property (nonatomic, strong) NSMutableArray *tagButtons;//array of alll tag button
 @property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
@@ -51,7 +51,6 @@
 @implementation EYTagView
 {
     NSInteger _editingTagIndex;
-    BOOL _isInit;
 }
 
 
@@ -76,7 +75,6 @@
 
 - (void)commonInit
 {
-    _newHeight=self.frame.size.height;
     _type=EYTagView_Type_Edit;
     _tagHeight=18;
     _tagPaddingSize=CGSizeMake(6, 6);
@@ -90,7 +88,6 @@
     _colorInputBg=COLORRGB(0xbbbbbb);
     _colorInputBoard=COLORRGB(0x2ab44e);
     _viewMaxHeight=130;
-    self.clipsToBounds=YES;
     self.backgroundColor=COLORRGB(0xffffff);
     
     _tagButtons=[NSMutableArray new];
@@ -99,7 +96,6 @@
     
     {
         UIScrollView* sv = [[UIScrollView alloc] initWithFrame:self.bounds];
-        sv.autoresizingMask=UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         sv.contentSize=sv.frame.size;
         sv.contentSize=CGSizeMake(sv.frame.size.width, 600);
         sv.indicatorStyle=UIScrollViewIndicatorStyleDefault;
@@ -115,13 +111,13 @@
         [tf addTarget:self action:@selector(textFieldDidChange:)forControlEvents:UIControlEventEditingChanged];
         tf.delegate = self;
         tf.placeholder=EYLOCALSTRING(@"Add Tag");
+      
         tf.returnKeyType = UIReturnKeyDone;
         [_svContainer addSubview:tf];
         _tfInput=tf;
     }
     {
-        UITapGestureRecognizer* panGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector
-        (handlerTapGesture:)];
+        UITapGestureRecognizer* panGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handlerTapGesture:)];
         panGestureRecognizer.numberOfTapsRequired=1;
         [self addGestureRecognizer:panGestureRecognizer];
     }
@@ -162,16 +158,6 @@
             return _tagStringsSelected;
         }
               break;
-        case EYTagView_Type_Multi_Selected_Edit:
-        {
-            [_tagStringsSelected removeAllObjects];
-            for (EYCheckBoxButton* button in _tagButtons) {
-                if (button.selected) {
-                    [_tagStringsSelected addObject:button.titleLabel.text];
-                }
-            }
-            return _tagStringsSelected;
-        }
         default:
         {
             
@@ -210,9 +196,8 @@
         }
     }
     //input view
-    _tfInput.hidden=(_type!=EYTagView_Type_Edit &&
-                     _type!=EYTagView_Type_Multi_Selected_Edit);
-    if (_type==EYTagView_Type_Edit || _type==EYTagView_Type_Multi_Selected_Edit) {
+    _tfInput.hidden=(_type!=EYTagView_Type_Edit);
+    if (_type==EYTagView_Type_Edit) {
         _tfInput.backgroundColor=_colorInputBg;
         _tfInput.textColor=_colorInput;
         _tfInput.font=_fontInput;
@@ -253,41 +238,21 @@
         
     }
     
-    _svContainer.contentSize=CGSizeMake(_svContainer.frame.size.width, offsetY+_tagHeight+_tagPaddingSize.height);
+    _svContainer.contentSize=CGSizeMake(_svContainer.contentSize.width, offsetY+_tagHeight+_tagPaddingSize.height);
     {
         CGRect frame=_svContainer.frame;
         frame.size.height=_svContainer.contentSize.height;
         frame.size.height=MIN(frame.size.height, _viewMaxHeight);
         _svContainer.frame=frame;
     }
-    
-    float oldHeight=self.frame.size.height;
-    float newHeight=_svContainer.frame.size.height;
-    
-    if (self.translatesAutoresizingMaskIntoConstraints)
-    {//autosizing
-        {
-            CGRect frame=self.frame;
-            frame.size.height=newHeight;
-            self.frame=frame;
-        }
-        if (!_isInit
-            && oldHeight!= newHeight
-            && _delegate) {
-            [_delegate heightDidChangedTagView:self];
-        }else{
-            
-        }
-    }else
-    {//auto layout
-        if (oldHeight!= newHeight){
-            _newHeight = newHeight;
-            [self invalidateIntrinsicContentSize];
-        }
+    {
+        CGRect frame=self.frame;
+        frame.size.height=_svContainer.frame.size.height;
+        self.frame=frame;
     }
-    
-   
-   
+    if (_delegate) {
+        [_delegate heightDidChangedTagView:self];
+    }
     if (oldContentHeight != _svContainer.contentSize.height) {
         CGPoint bottomOffset = CGPointMake(0, _svContainer.contentSize.height - _svContainer.bounds.size.height);
         [_svContainer setContentOffset:bottomOffset animated:YES];
@@ -322,13 +287,11 @@
 #pragma mark action
 
 - (void)addTags:(NSArray *)tags{
-    _isInit=YES;
     for (NSString *tag in tags)
     {
         [self addTagToLast:tag];
     }
     [self layoutTagviews];
-    _isInit=NO;
 }
 - (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags{
     [self addTags:tags];
@@ -358,17 +321,7 @@
     }
     [self layoutTagviews];
 }
-- (void)removeAllTags{
-    _isInit=YES;
-    [_tagStrings removeAllObjects];
-    for (UIButton* bt in _tagButtons) {
-        [bt removeFromSuperview];
-        
-    }
-    [_tagButtons removeAllObjects];
-    [self layoutTagviews];
-    _isInit=NO;
-}
+
 - (void)removeTags:(NSArray *)tags{
     for (NSString *tag in tags)
     {
@@ -424,10 +377,6 @@
             tagButton.selected=!tagButton.selected;
         }
             break;
-        case EYTagView_Type_Multi_Selected_Edit:
-        {
-            tagButton.selected=!tagButton.selected;
-        }
         default:
         {
             
@@ -503,8 +452,9 @@
 }
 - (void)handlerTapGesture:(UIPanGestureRecognizer *)recognizer {
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
-    if ((_type==EYTagView_Type_Edit || _type==EYTagView_Type_Multi_Selected_Edit) &&
-        _tfInput.isFirstResponder && _tfInput.text) {
+    if (_tfInput.isFirstResponder
+        && _type==EYTagView_Type_Edit
+        && _tfInput.text) {
         NSString* pureStr=[_tfInput.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if (pureStr
             && ![pureStr isEqualToString:@""]) {
@@ -513,6 +463,7 @@
             [self layoutTagviews];
             
         }
+        
     }
 }
 #pragma mark getter & setter
@@ -589,11 +540,5 @@
             break;
     }
 }
-#pragma mark autolayout
--(CGSize)intrinsicContentSize{//UIViewNoIntrinsicMetric
-    return CGSizeMake(UIViewNoIntrinsicMetric, _newHeight);
-}
--(void)layoutSubviews{
-    [self layoutTagviews];
-}
+
 @end
