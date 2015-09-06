@@ -30,17 +30,6 @@
                                     </mask>
                                 </variation>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="auto layout test " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRv-9c-V24">
-                                <rect key="frame" x="56" y="232" width="230" height="21"/>
-                                <color key="backgroundColor" red="0.99215686270000003" green="0.51372549020000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="230" id="sga-sx-4Ka"/>
-                                    <constraint firstAttribute="height" constant="21" id="tgy-tH-muE"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDV-dO-LPo" userLabel="Tag View2" customClass="EYTagView">
                                 <rect key="frame" x="56" y="277" width="230" height="135"/>
                                 <color key="backgroundColor" red="0.87369791669999997" green="0.87369791669999997" blue="0.87369791669999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -81,20 +70,43 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="xxm-ez-MoY">
+                                <rect key="frame" x="21" y="232" width="345" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="345" id="VRF-1N-Rdg"/>
+                                    <constraint firstAttribute="height" constant="28" id="aBq-42-o5I"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="edit"/>
+                                    <segment title="show"/>
+                                    <segment title="radio"/>
+                                    <segment title="checkbox"/>
+                                    <segment title="multi edit"/>
+                                </segments>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="VRF-1N-Rdg"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="handlerSegmentAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="mKx-6w-X2q"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="d97-yo-As0" firstAttribute="top" secondItem="qDV-dO-LPo" secondAttribute="bottom" constant="17" id="1xq-XJ-GP8"/>
-                            <constraint firstItem="qDV-dO-LPo" firstAttribute="top" secondItem="HRv-9c-V24" secondAttribute="bottom" constant="24" id="6mH-3t-5DC"/>
+                            <constraint firstItem="xxm-ez-MoY" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="Ftf-cj-dee"/>
                             <constraint firstItem="LVG-rX-BcK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="GYf-9a-P7D"/>
+                            <constraint firstItem="xxm-ez-MoY" firstAttribute="top" secondItem="sGj-lX-OhZ" secondAttribute="bottom" constant="17" id="Gps-wR-T4h"/>
                             <constraint firstItem="LVG-rX-BcK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="10" id="H9Y-Gc-EGd"/>
+                            <constraint firstItem="qDV-dO-LPo" firstAttribute="top" secondItem="xxm-ez-MoY" secondAttribute="bottom" constant="17" id="Kgr-7U-cxy"/>
                             <constraint firstItem="qDV-dO-LPo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="NlG-S7-RUc"/>
                             <constraint firstItem="LVG-rX-BcK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="7" id="OSz-EU-WP8"/>
-                            <constraint firstItem="HRv-9c-V24" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="axA-sb-4i4"/>
                             <constraint firstItem="d97-yo-As0" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="122" id="bFX-lm-tEp"/>
                             <constraint firstItem="sGj-lX-OhZ" firstAttribute="top" secondItem="LVG-rX-BcK" secondAttribute="bottom" constant="10" id="bmj-MH-dKS"/>
                             <constraint firstItem="sGj-lX-OhZ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="56" id="brq-g0-l7z"/>
-                            <constraint firstItem="HRv-9c-V24" firstAttribute="top" secondItem="sGj-lX-OhZ" secondAttribute="bottom" constant="17" id="qx3-qf-zx7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="xxm-ez-MoY" secondAttribute="trailing" constant="5" id="ehF-nE-mJK"/>
                             <constraint firstAttribute="trailingMargin" secondItem="sGj-lX-OhZ" secondAttribute="trailing" constant="21" id="x4r-eW-Jku"/>
                         </constraints>
                         <variation key="default">
