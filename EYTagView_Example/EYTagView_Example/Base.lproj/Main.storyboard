@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="vXZ-lx-hvc">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -17,67 +17,95 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="auto layout test" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVG-rX-BcK">
-                                <rect key="frame" x="105" y="27" width="120" height="21"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="120" id="S8B-KA-TNa"/>
-                                    <constraint firstAttribute="height" constant="21" id="ory-yl-Zjn"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sGj-lX-OhZ" customClass="EYTagView">
-                                <rect key="frame" x="56" y="68" width="230" height="278"/>
+                                <rect key="frame" x="56" y="80" width="507" height="135"/>
                                 <color key="backgroundColor" red="0.87369791666666663" green="0.87369791666666663" blue="0.87369791666666663" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="230" id="PHz-Hr-tsV"/>
-                                    <constraint firstAttribute="height" priority="999" constant="278" id="WbM-Vc-U9x"/>
+                                    <constraint firstAttribute="height" priority="1" constant="135" id="WbM-Vc-U9x"/>
                                 </constraints>
-                            </view>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="gko-4U-5Zb">
-                                <rect key="frame" x="16" y="361" width="270" height="29"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="28" id="Thu-6S-hdg"/>
-                                    <constraint firstAttribute="width" constant="270" id="bh2-u1-eWd"/>
-                                    <constraint firstAttribute="height" constant="28" id="kuD-Hz-RGc"/>
-                                    <constraint firstAttribute="width" constant="250" id="ogL-Xc-2sF"/>
-                                </constraints>
-                                <segments>
-                                    <segment title="tag edit"/>
-                                    <segment title="tag show"/>
-                                    <segment title="radio"/>
-                                    <segment title="checkbox"/>
-                                </segments>
                                 <variation key="default">
                                     <mask key="constraints">
-                                        <exclude reference="kuD-Hz-RGc"/>
-                                        <exclude reference="ogL-Xc-2sF"/>
+                                        <exclude reference="PHz-Hr-tsV"/>
                                     </mask>
                                 </variation>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="auto layout test " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="HRv-9c-V24">
+                                <rect key="frame" x="56" y="232" width="230" height="21"/>
+                                <color key="backgroundColor" red="0.99215686270000003" green="0.51372549020000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="230" id="sga-sx-4Ka"/>
+                                    <constraint firstAttribute="height" constant="21" id="tgy-tH-muE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qDV-dO-LPo" userLabel="Tag View2" customClass="EYTagView">
+                                <rect key="frame" x="56" y="277" width="230" height="135"/>
+                                <color key="backgroundColor" red="0.87369791669999997" green="0.87369791669999997" blue="0.87369791669999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="249" constant="135" id="Iyd-Wc-GAE"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="135" id="eam-7G-nP0"/>
+                                    <constraint firstAttribute="width" constant="230" id="jjP-Sl-dca"/>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="230" id="nd7-B3-6rc"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="eam-7G-nP0"/>
+                                        <exclude reference="nd7-B3-6rc"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d97-yo-As0">
+                                <rect key="frame" x="138" y="429" width="30" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="J0f-8P-GfX"/>
+                                    <constraint firstAttribute="height" constant="30" id="yXt-bd-VXm"/>
+                                </constraints>
+                                <state key="normal" title="test">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
                                 <connections>
-                                    <action selector="handlerSegmentAction:" destination="vXZ-lx-hvc" eventType="valueChanged" id="8PQ-Jg-rWl"/>
+                                    <action selector="test:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="QBG-9g-ATQ"/>
                                 </connections>
-                            </segmentedControl>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="auto layout test auto layout test auto layout test auto layout test auto layout test " lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LVG-rX-BcK">
+                                <rect key="frame" x="56" y="28" width="220" height="43"/>
+                                <color key="backgroundColor" red="0.99215686270000003" green="0.51372549020000002" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="220" id="S8B-KA-TNa"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="10" id="ory-yl-Zjn"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="gko-4U-5Zb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="5" id="5db-jw-eVf"/>
-                            <constraint firstItem="gko-4U-5Zb" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="5" id="9Pi-ax-9rv"/>
-                            <constraint firstItem="gko-4U-5Zb" firstAttribute="top" secondItem="sGj-lX-OhZ" secondAttribute="bottom" constant="20" id="9bD-fD-BaD"/>
-                            <constraint firstItem="LVG-rX-BcK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="89" id="H9Y-Gc-EGd"/>
+                            <constraint firstItem="d97-yo-As0" firstAttribute="top" secondItem="qDV-dO-LPo" secondAttribute="bottom" constant="17" id="1xq-XJ-GP8"/>
+                            <constraint firstItem="qDV-dO-LPo" firstAttribute="top" secondItem="HRv-9c-V24" secondAttribute="bottom" constant="24" id="6mH-3t-5DC"/>
+                            <constraint firstItem="LVG-rX-BcK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="GYf-9a-P7D"/>
+                            <constraint firstItem="LVG-rX-BcK" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="10" id="H9Y-Gc-EGd"/>
+                            <constraint firstItem="qDV-dO-LPo" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="NlG-S7-RUc"/>
                             <constraint firstItem="LVG-rX-BcK" firstAttribute="top" secondItem="jyV-Pf-zRb" secondAttribute="bottom" constant="7" id="OSz-EU-WP8"/>
-                            <constraint firstItem="sGj-lX-OhZ" firstAttribute="top" secondItem="LVG-rX-BcK" secondAttribute="bottom" constant="20" id="bmj-MH-dKS"/>
+                            <constraint firstItem="HRv-9c-V24" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="40" id="axA-sb-4i4"/>
+                            <constraint firstItem="d97-yo-As0" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leadingMargin" constant="122" id="bFX-lm-tEp"/>
+                            <constraint firstItem="sGj-lX-OhZ" firstAttribute="top" secondItem="LVG-rX-BcK" secondAttribute="bottom" constant="10" id="bmj-MH-dKS"/>
                             <constraint firstItem="sGj-lX-OhZ" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="56" id="brq-g0-l7z"/>
+                            <constraint firstItem="HRv-9c-V24" firstAttribute="top" secondItem="sGj-lX-OhZ" secondAttribute="bottom" constant="17" id="qx3-qf-zx7"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="sGj-lX-OhZ" secondAttribute="trailing" constant="21" id="x4r-eW-Jku"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
-                                <exclude reference="5db-jw-eVf"/>
+                                <exclude reference="H9Y-Gc-EGd"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
-                        <outlet property="tagView" destination="sGj-lX-OhZ" id="gMP-cC-krO"/>
+                        <outlet property="tagView" destination="sGj-lX-OhZ" id="0qo-PV-flH"/>
+                        <outlet property="tagView2" destination="qDV-dO-LPo" id="448-Rc-1ix"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>

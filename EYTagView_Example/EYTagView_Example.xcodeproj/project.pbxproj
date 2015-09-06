@@ -193,6 +193,7 @@
 				TargetAttributes = {
 					5FE358C41B770259007D66B3 = {
 						CreatedOnToolsVersion = 6.4;
+						DevelopmentTeam = 77SM2DKNM6;
 					};
 					5FE358DD1B770259007D66B3 = {
 						CreatedOnToolsVersion = 6.4;
@@ -387,6 +388,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: YANG WEI (77SM2DKNM6)";
 				INFOPLIST_FILE = EYTagView_Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -397,6 +399,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Distribution: YANG WEI (77SM2DKNM6)";
 				INFOPLIST_FILE = EYTagView_Example/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";

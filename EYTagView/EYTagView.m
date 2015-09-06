@@ -186,12 +186,18 @@
     float oldContentHeight=_svContainer.contentSize.height;
     float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height;
     
+    BOOL needLayoutAgain=NO;
     for (int i=0; i<_tagButtons.count; i++) {
         EYCheckBoxButton* tagButton=_tagButtons[i];
         CGRect frame=tagButton.frame;
         
         if (tagButton.frame.size.width+_tagPaddingSize.width*2>_svContainer.contentSize.width) {
             NSLog(@"!!!  tagButton width tooooooooo large");
+            [tagButton removeFromSuperview];
+            [_tagButtons removeObjectAtIndex:i];
+            [_tagStrings removeObjectAtIndex:i];
+            needLayoutAgain=YES;
+            break;
         }else{
             if ((offsetX+tagButton.frame.size.width+_tagPaddingSize.width)
                 <=_svContainer.contentSize.width) {
@@ -208,6 +214,10 @@
             }
             tagButton.frame=frame;
         }
+    }
+    if (needLayoutAgain) {
+        [self layoutTagviews];
+        return;
     }
     //input view
     _tfInput.hidden=(_type!=EYTagView_Type_Edit &&

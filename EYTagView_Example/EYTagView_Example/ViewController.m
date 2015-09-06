@@ -11,6 +11,7 @@
 
 @interface ViewController ()<EYTagViewDelegate>
 @property (strong, nonatomic) IBOutlet EYTagView *tagView;
+@property (strong, nonatomic) IBOutlet EYTagView *tagView2;
 
 @end
 
@@ -19,44 +20,78 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    _tagView.translatesAutoresizingMaskIntoConstraints=YES;
-    _tagView.delegate=self;
+    {
+        EYTagView* tagView=_tagView;
+        tagView.colorTag=COLORRGB(0xffffff);
+        tagView.colorTagBg=COLORRGB(0x2ab44e);
+        tagView.colorInput=COLORRGB(0x2ab44e);
+        tagView.colorInputBg=COLORRGB(0xffffff);
+        tagView.colorInputPlaceholder=COLORRGB(0x2ab44e);
+        tagView.backgroundColor=COLORRGB(0x00ffff);
+        tagView.colorInputBoard=COLORRGB(0x2ab44e);
+        tagView.viewMaxHeight=230;
+        
+        [tagView addTags:@[
+                           @"abcdefghigklmnopqrstuvwxyz123456789",
+                           @"dog",
+                           @"cat",
+                           @"pig",
+                           @"duck",
+                           @"horse",
+                           @"elephant",
+                           @"ant",
+                           @"fish",
+                           @"bird",
+                           @"engle",
+                           @"snake",
+                           @"mouse",
+                           @"squirrel",
+                           @"beaver",
+                           @"kangaroo",
+                           @"monkey",
+                           @"panda",
+                           @"bear",
+                           @"lion",
+                           ]];
+    }
     
-    _tagView.colorTag=COLORRGB(0xffffff);
-    _tagView.colorTagBg=COLORRGB(0x2ab44e);
-    _tagView.colorInput=COLORRGB(0x2ab44e);
-    _tagView.colorInputBg=COLORRGB(0xffffff);
-    _tagView.colorInputPlaceholder=COLORRGB(0x2ab44e);
-    _tagView.backgroundColor=COLORRGB(0xffffff);
-    _tagView.colorInputBoard=COLORRGB(0x2ab44e);
-    _tagView.viewMaxHeight=130;
+    {
+        EYTagView* tagView=_tagView2;
+        
+        tagView.colorTag=COLORRGB(0xffffff);
+        tagView.colorTagBg=COLORRGB(0x2ab44e);
+        tagView.colorInput=COLORRGB(0x2ab44e);
+        tagView.colorInputBg=COLORRGB(0xffffff);
+        tagView.colorInputPlaceholder=COLORRGB(0x2ab44e);
+        tagView.backgroundColor=COLORRGB(0x00ffff);
+        tagView.colorInputBoard=COLORRGB(0x2ab44e);
+        
+        tagView.type=EYTagView_Type_Multi_Selected;
+        tagView.viewMaxHeight=230;
+        
+        [tagView addTags:@[
+                           @"pig",
+                           @"duck",
+                           @"horse",
+                           @"elephant",
+                           @"ant",
+                           @"fish",
+                           @"bird",
+                           @"engle",
+                           @"snake",
+                           @"mouse",
+                           @"squirrel",
+                           @"beaver",
+                           @"kangaroo",
+                           @"monkey",
+                           @"panda",
+                           ]];
+    }
     
-    [_tagView addTags:@[
-                        @"dog",
-                        @"cat",
-                        @"pig",
-                        @"duck",
-                        @"horse",
-                        @"elephant",
-                        @"ant",
-                        @"fish",
-                        @"bird",
-                        @"engle",
-                        @"snake",
-                        @"mouse",
-                        @"squirrel",
-                        @"beaver",
-                        @"kangaroo",
-                        @"monkey",
-                        @"panda",
-                        @"bear",
-                        @"lion",
-                        ]];
+    
 }
 
-- (IBAction)layout:(id)sender {
-    [_tagView layoutTagviews];
-}
+
 
 -(void)heightDidChangedTagView:(EYTagView *)tagView{
     NSLog(@"heightDidChangedTagView");
@@ -93,5 +128,8 @@
     }
     
     
+}
+- (IBAction)test:(id)sender {
+    NSLog(@"%@",_tagView);
 }
 @end
