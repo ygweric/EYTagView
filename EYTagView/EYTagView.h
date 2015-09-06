@@ -53,6 +53,7 @@ typedef enum{
     EYTagView_Type_Display,
     EYTagView_Type_Single_Selected,
     EYTagView_Type_Multi_Selected,
+    EYTagView_Type_Multi_Selected_Edit,
 }EYTagView_Type;
 
 @interface EYTagView : UIView
@@ -82,6 +83,7 @@ typedef enum{
 @property (nonatomic, strong) UIColor* colorInputBoard;
 
 
+- (void)removeAllTags;
 - (void)addTags:(NSArray *)tags;
 - (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags;
 -(void)layoutTagviews;
