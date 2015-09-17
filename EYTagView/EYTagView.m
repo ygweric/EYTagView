@@ -20,6 +20,9 @@
 @interface EYCheckBoxButton :UIButton
 @property (nonatomic, strong) UIColor* colorBg;
 @property (nonatomic, strong) UIColor* colorText;
+@property (nonatomic, strong) UIColor* colorTagUnSelected;
+@property (nonatomic, strong) UIColor* colorTagBorder;
+
 @end
 
 @implementation EYCheckBoxButton
@@ -27,12 +30,13 @@
     [super setSelected:selected];
     if (selected) {
         [self setBackgroundColor:_colorBg];
+        self.layer.borderColor=_colorBg.CGColor;
         [self setTitleColor:_colorText forState:UIControlStateSelected];
     } else {
-        [self setBackgroundColor:_colorText];
-        self.layer.borderColor=_colorBg.CGColor;
+        [self setBackgroundColor:COLORRGB(0xffffff)];
+        self.layer.borderColor=_colorTagBorder.CGColor;
         self.layer.borderWidth=1;
-        [self setTitleColor:_colorBg forState:UIControlStateNormal];
+        [self setTitleColor:_colorTagUnSelected forState:UIControlStateNormal];
     }
     [self setNeedsDisplay];
 }
@@ -84,14 +88,17 @@
     _fontTag=[UIFont systemFontOfSize:14];
     self.fontInput=[UIFont systemFontOfSize:14];
     _colorTag=COLORRGB(0xffffff);
+    _colorTagUnselected=COLORRGB(0xa1a2a2);
     _colorInput=COLORRGB(0x2ab44e);
     _colorInputPlaceholder=COLORRGB(0x2ab44e);
     _colorTagBg=COLORRGB(0x2ab44e);
+    _colorTagBoard=COLORRGB(0xdddddd);
     _colorInputBg=COLORRGB(0xbbbbbb);
     _colorInputBoard=COLORRGB(0x2ab44e);
     _viewMaxHeight=130;
     self.clipsToBounds=YES;
     self.backgroundColor=COLORRGB(0xffffff);
+    
     
     _tagButtons=[NSMutableArray new];
     _tagStrings=[NSMutableArray new];
@@ -285,6 +292,7 @@
             && oldHeight!= newHeight
             && _delegate) {
             [_delegate heightDidChangedTagView:self];
+            
         }else{
             
         }
@@ -308,6 +316,9 @@
 {
     EYCheckBoxButton *tagBtn = [[EYCheckBoxButton alloc] init];
     tagBtn.colorBg=_colorTagBg;
+    tagBtn.colorTagUnSelected=_colorTagUnselected;
+    tagBtn.colorTagBorder=_colorTagBoard;
+    
     tagBtn.colorText=_colorTag;
     tagBtn.selected=YES;
     [tagBtn.titleLabel setFont:_fontTag];
@@ -425,6 +436,7 @@
                 for (EYCheckBoxButton* button in _tagButtons) {
                     button.selected=NO;
                 }
+                tagButton.colorBg=_colorTagBg;
                 tagButton.selected=YES;
             }
         }
@@ -438,6 +450,7 @@
         {
             tagButton.selected=!tagButton.selected;
         }
+            break;
         default:
         {
             
@@ -447,6 +460,20 @@
     
 }
 
+-(void)finishEditing{
+    if ((_type==EYTagView_Type_Edit || _type==EYTagView_Type_Multi_Selected_Edit) &&
+        _tfInput.isFirstResponder && _tfInput.text) {
+        NSString* pureStr=[_tfInput.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+        if (pureStr
+            && ![pureStr isEqualToString:@""]) {
+            [self addTagToLast:pureStr];
+            _tfInput.text=nil;
+            [self layoutTagviews];
+            
+        }
+    }
+    [self.tfInput resignFirstResponder];
+}
 
 #pragma mark UITextFieldDelegate
 
@@ -483,18 +510,15 @@
     }
 }
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
-        && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
-        [_delegate performSelector:@selector(textFieldDidBeginEditing:) withObject:textField];
+    if (_delegate && [_delegate respondsToSelector:@selector(tagDidBeginEditing:)]) {
+        [_delegate tagDidBeginEditing:self];
     }
 }
 
 
 -(void)textFieldDidEndEditing:(UITextField *)textField{
-    [self layoutTagviews];
-    if ([_delegate conformsToProtocol:@protocol(UITextFieldDelegate)]
-        && [_delegate respondsToSelector:@selector(textFieldDidEndEditing:)]) {
-        [_delegate performSelector:@selector(textFieldDidEndEditing:) withObject:textField];
+    if (_delegate && [_delegate respondsToSelector:@selector(tagDidEndEditing:)]) {
+        [_delegate tagDidEndEditing:self];
     }
 }
 #pragma mark UIMenuController
@@ -513,8 +537,9 @@
 }
 - (void)handlerTapGesture:(UIPanGestureRecognizer *)recognizer {
     [[UIMenuController sharedMenuController] setMenuVisible:NO animated:YES];
-    if ((_type==EYTagView_Type_Edit || _type==EYTagView_Type_Multi_Selected_Edit) &&
-        _tfInput.isFirstResponder && _tfInput.text) {
+    if ((_type==EYTagView_Type_Edit || _type==EYTagView_Type_Multi_Selected_Edit)
+        &&  _tfInput.isFirstResponder
+        && _tfInput.text) {
         NSString* pureStr=[_tfInput.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
         if (pureStr
             && ![pureStr isEqualToString:@""]) {

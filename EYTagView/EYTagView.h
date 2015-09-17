@@ -46,6 +46,8 @@ alpha:1.0]
 @optional
 -(void)heightDidChangedTagView:(EYTagView*)tagView;
 
+-(void)tagDidBeginEditing:(EYTagView*)tagView;
+-(void)tagDidEndEditing:(EYTagView*)tagView;
 @end
 
 typedef enum{
@@ -75,6 +77,8 @@ typedef enum{
 
 
 @property (nonatomic, strong) UIColor* colorTag;
+@property (nonatomic, strong) UIColor* colorTagUnselected;
+@property (nonatomic, strong) UIColor* colorTagBoard;
 @property (nonatomic, strong) UIColor* colorInput;
 @property (nonatomic, strong) UIColor* colorInputPlaceholder;
 
@@ -83,10 +87,10 @@ typedef enum{
 @property (nonatomic, strong) UIColor* colorInputBoard;
 
 
-- (void)removeAllTags;
 - (void)addTags:(NSArray *)tags;
 - (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags;
 -(void)layoutTagviews;
 -(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected;
 -(NSMutableArray *)tagStrings;
+-(void)finishEditing;
 @end
