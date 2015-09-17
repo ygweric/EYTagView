@@ -189,8 +189,20 @@
 }
 -(UIView*)newArrowView{
     UIView* vArrow=[[UIView alloc]initWithFrame:CGRectMake(0, 0, _tagHeight*1.5f, _tagHeight)];
-    vArrow.backgroundColor=[UIColor orangeColor];
+    vArrow.backgroundColor=[UIColor clearColor];
     [self addSubview:vArrow];
+    
+    {
+        UILabel* lb=[[UILabel alloc]initWithFrame:vArrow.frame];
+        lb.textAlignment=NSTextAlignmentCenter;
+        lb.text=@"···>";
+        lb.font=[UIFont systemFontOfSize:13];
+        lb.textColor=_colorTagBg;
+        lb.backgroundColor=[UIColor clearColor];
+        [vArrow addSubview:lb];
+    }
+    
+    
     return vArrow;
 }
 
