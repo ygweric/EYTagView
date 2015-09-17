@@ -66,7 +66,7 @@
         tagView.backgroundColor=COLORRGB(0x00ffff);
         tagView.colorInputBoard=COLORRGB(0x2ab44e);
         
-        tagView.type=EYTagView_Type_Multi_Selected;
+        tagView.type=EYTagView_Type_Flow;
         tagView.viewMaxHeight=230;
         
         [tagView addTags:@[

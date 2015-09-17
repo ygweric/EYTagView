@@ -187,7 +187,12 @@
     }
     return nil;
 }
-
+-(UIView*)newArrowView{
+    UIView* vArrow=[[UIView alloc]initWithFrame:CGRectMake(0, 0, _tagHeight*1.5f, _tagHeight)];
+    vArrow.backgroundColor=[UIColor orangeColor];
+    [self addSubview:vArrow];
+    return vArrow;
+}
 
 -(void)layoutTagviews{
     float oldContentHeight=_svContainer.contentSize.height;
@@ -206,12 +211,13 @@
             needLayoutAgain=YES;
             break;
         }else{
+            //button
             if ((offsetX+tagButton.frame.size.width+_tagPaddingSize.width)
                 <=_svContainer.contentSize.width) {
                 frame.origin.x=offsetX;
                 frame.origin.y=offsetY;
                 offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
-            }else{
+            }else{//break line
                 offsetX=_tagPaddingSize.width;
                 offsetY+=_tagHeight+_tagPaddingSize.height;
                 
@@ -220,6 +226,26 @@
                 offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
             }
             tagButton.frame=frame;
+            //arrow
+            if (_type==EYTagView_Type_Flow
+                && i!=_tagButtons.count-1) {
+                UIView* vArrow=[self newArrowView];
+                frame=vArrow.frame;
+                if ((offsetX+vArrow.frame.size.width+_tagPaddingSize.width)
+                    <=_svContainer.contentSize.width) {
+                    frame.origin.x=offsetX;
+                    frame.origin.y=offsetY;
+                    offsetX+=vArrow.frame.size.width+_tagPaddingSize.width;
+                }else{//break line
+                    offsetX=_tagPaddingSize.width;
+                    offsetY+=_tagHeight+_tagPaddingSize.height;
+                    
+                    frame.origin.x=offsetX;
+                    frame.origin.y=offsetY;
+                    offsetX+=vArrow.frame.size.width+_tagPaddingSize.width;
+                }
+                vArrow.frame=frame;
+            }
         }
     }
     if (needLayoutAgain) {

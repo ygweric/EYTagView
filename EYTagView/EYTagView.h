@@ -56,6 +56,7 @@ typedef enum{
     EYTagView_Type_Single_Selected,
     EYTagView_Type_Multi_Selected,
     EYTagView_Type_Multi_Selected_Edit,
+    EYTagView_Type_Flow,
 }EYTagView_Type;
 
 @interface EYTagView : UIView
