@@ -193,7 +193,6 @@
 -(UIView*)newArrowView{
     UIView* vArrow=[[UIView alloc]initWithFrame:CGRectMake(0, 0, _tagHeight*1.5f, _tagHeight)];
     vArrow.backgroundColor=[UIColor clearColor];
-    
     {
         UILabel* lb=[[UILabel alloc]initWithFrame:vArrow.frame];
         lb.textAlignment=NSTextAlignmentCenter;
@@ -211,6 +210,14 @@
 -(void)layoutTagviews{
     float oldContentHeight=_svContainer.contentSize.height;
     float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height;
+    
+    if (_type==EYTagView_Type_Flow){
+        for (UIView* v in _tagArrows) {
+            [v removeFromSuperview];
+        }
+        [_tagArrows removeAllObjects];
+
+    }
     
     BOOL needLayoutAgain=NO;// just for too large text
     BOOL shouldFinishLayout=NO;//just for break line
