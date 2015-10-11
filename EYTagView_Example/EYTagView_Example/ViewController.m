@@ -7,7 +7,29 @@
 //
 
 #import "ViewController.h"
-
+/**
+ @[
+ @"dog",
+ @"cat",
+ @"pig",
+ @"duck",
+ @"horse",
+ @"elephant",
+ @"ant",
+ @"fish",
+ @"bird",
+ @"engle",
+ @"snake",
+ @"mouse",
+ @"squirrel",
+ @"beaver",
+ @"kangaroo",
+ @"monkey",
+ @"panda",
+ @"bear",
+ @"lion",
+ ]
+ */
 
 @interface ViewController ()<EYTagViewDelegate>
 @property (strong, nonatomic) IBOutlet EYTagView *tagView;
@@ -33,7 +55,6 @@
         tagView.type=_type;
         
         [tagView addTags:@[
-                           @"abcdefghigklmnopqrstuvwxyz123456789",
                            @"dog",
                            @"cat",
                            @"pig",
@@ -76,16 +97,7 @@
                            @"horse",
                            @"elephant",
                            @"ant",
-                           @"fish",
-                           @"bird",
-                           @"engle",
-                           @"snake",
-                           @"mouse",
-                           @"squirrel",
-                           @"beaver",
-                           @"kangaroo",
-                           @"monkey",
-                           @"panda",
+                           @"fish",                        
                            ]];
     }
     
