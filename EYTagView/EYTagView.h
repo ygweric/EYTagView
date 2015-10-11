@@ -48,10 +48,16 @@ alpha:1.0]
 
 -(void)tagDidBeginEditing:(EYTagView*)tagView;
 -(void)tagDidEndEditing:(EYTagView*)tagView;
+
+/**
+ *  @return whether delete
+ */
+-(BOOL)willRemoveTag:(EYTagView*)tagView index:(NSInteger)index;
 @end
 
 typedef enum{
     EYTagView_Type_Edit,
+    EYTagView_Type_Edit_Only_Delete,
     EYTagView_Type_Display,
     EYTagView_Type_Single_Selected,
     EYTagView_Type_Multi_Selected,
@@ -64,6 +70,12 @@ typedef enum{
 @property (nonatomic, strong) UITextField* tfInput;
 @property (nonatomic) EYTagView_Type type;//default edit
 
+
+
+/**
+ *  numberOfLines & preferredMaxLayoutWidth just like UILabel
+ */
+@property (nonatomic) NSInteger numberOfLines;//default 0
 
 @property (nonatomic) float tagHeight;//default
 
@@ -87,9 +99,16 @@ typedef enum{
 @property (nonatomic, strong) UIColor* colorInputBg;
 @property (nonatomic, strong) UIColor* colorInputBoard;
 
+@property (assign) NSInteger maxSelected;
+@property (nonatomic, strong) NSMutableArray *tagArrows;//array of alll arrow
+
 
 - (void)addTags:(NSArray *)tags;
 - (void)addTags:(NSArray *)tags selectedTags:(NSArray*)selectedTags;
+- (NSArray *)getTagTexts;
+- (void)removeAllTags;
+- (void)removeTag:(NSString *)tag;
+- (void)removeTagWithIndex:(NSInteger)index;
 -(void)layoutTagviews;
 -(void)setTagStringsSelected:(NSMutableArray *)tagStringsSelected;
 -(NSMutableArray *)tagStrings;

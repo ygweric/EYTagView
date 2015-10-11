@@ -46,9 +46,10 @@
 @interface EYTagView()<UITextFieldDelegate>
 @property (nonatomic) CGFloat newHeight;
 @property (nonatomic, strong) UIScrollView* svContainer;
-@property (nonatomic, strong) NSMutableArray *tagButtons;//array of alll tag button
 @property (nonatomic, strong) NSMutableArray *tagStrings;//check whether tag is duplicated
+@property (nonatomic, strong) NSMutableArray *tagButtons;//array of alll tag button
 @property (nonatomic, strong) NSMutableArray *tagStringsSelected;
+@property (assign) NSInteger tagButtonSelecteds;
 
 @end
 
@@ -57,7 +58,6 @@
     NSInteger _editingTagIndex;
     BOOL _isInit;
 }
-
 
 - (instancetype)initWithCoder:(NSCoder *)aDecoder
 {
@@ -98,9 +98,11 @@
     _viewMaxHeight=130;
     self.clipsToBounds=YES;
     self.backgroundColor=COLORRGB(0xffffff);
-    
+    _maxSelected = 0;
+    _tagButtonSelecteds = 0;
     
     _tagButtons=[NSMutableArray new];
+    _tagArrows=[NSMutableArray new];
     _tagStrings=[NSMutableArray new];
     _tagStringsSelected=[NSMutableArray new];
     
@@ -137,6 +139,7 @@
 -(NSMutableArray *)tagStrings{
       switch (_type) {
         case EYTagView_Type_Edit:
+        case EYTagView_Type_Edit_Only_Delete:
         {
             return _tagStrings;
         }
@@ -190,7 +193,6 @@
 -(UIView*)newArrowView{
     UIView* vArrow=[[UIView alloc]initWithFrame:CGRectMake(0, 0, _tagHeight*1.5f, _tagHeight)];
     vArrow.backgroundColor=[UIColor clearColor];
-    [self addSubview:vArrow];
     
     {
         UILabel* lb=[[UILabel alloc]initWithFrame:vArrow.frame];
@@ -210,9 +212,16 @@
     float oldContentHeight=_svContainer.contentSize.height;
     float offsetX=_tagPaddingSize.width,offsetY=_tagPaddingSize.height;
     
-    BOOL needLayoutAgain=NO;
+    BOOL needLayoutAgain=NO;// just for too large text
+    BOOL shouldFinishLayout=NO;//just for break line
+    int currentLine=0;
     for (int i=0; i<_tagButtons.count; i++) {
         EYCheckBoxButton* tagButton=_tagButtons[i];
+        tagButton.hidden=NO;
+        if (shouldFinishLayout) {
+            tagButton.hidden=YES;
+            continue;
+        }
         CGRect frame=tagButton.frame;
         
         if (tagButton.frame.size.width+_tagPaddingSize.width*2>_svContainer.contentSize.width) {
@@ -230,6 +239,19 @@
                 frame.origin.y=offsetY;
                 offsetX+=tagButton.frame.size.width+_tagPaddingSize.width;
             }else{//break line
+                currentLine++;
+                if (_numberOfLines!=0
+                    && _numberOfLines<=currentLine) {
+                    shouldFinishLayout=YES;
+                    if (_type==EYTagView_Type_Flow
+                        && i!=0) {//not first one
+                        [_tagArrows.lastObject removeFromSuperview];
+                        [_tagArrows removeLastObject];
+                    }
+                    tagButton.hidden=YES;
+                    continue;
+                }
+                
                 offsetX=_tagPaddingSize.width;
                 offsetY+=_tagHeight+_tagPaddingSize.height;
                 
@@ -242,6 +264,7 @@
             if (_type==EYTagView_Type_Flow
                 && i!=_tagButtons.count-1) {
                 UIView* vArrow=[self newArrowView];
+                
                 frame=vArrow.frame;
                 if ((offsetX+vArrow.frame.size.width+_tagPaddingSize.width)
                     <=_svContainer.contentSize.width) {
@@ -249,6 +272,13 @@
                     frame.origin.y=offsetY;
                     offsetX+=vArrow.frame.size.width+_tagPaddingSize.width;
                 }else{//break line
+                    currentLine++;
+                    if (_numberOfLines!=0
+                        && _numberOfLines<=currentLine) {
+                        shouldFinishLayout=YES;
+                        continue;
+                    }
+                    
                     offsetX=_tagPaddingSize.width;
                     offsetY+=_tagHeight+_tagPaddingSize.height;
                     
@@ -257,6 +287,8 @@
                     offsetX+=vArrow.frame.size.width+_tagPaddingSize.width;
                 }
                 vArrow.frame=frame;
+                [_tagArrows addObject:vArrow];
+                [self addSubview:vArrow];
             }
         }
     }
@@ -420,6 +452,10 @@
 - (void)removeAllTags{
     _isInit=YES;
     [_tagStrings removeAllObjects];
+    for (UIView* v in _tagArrows) {
+        [v removeFromSuperview];
+    }
+    [_tagArrows removeAllObjects];
     for (UIButton* bt in _tagButtons) {
         [bt removeFromSuperview];
         
@@ -434,6 +470,9 @@
         [self removeTag:tag];
     }
     [self layoutTagviews];
+}
+- (void)removeTagWithIndex:(NSInteger)index{
+    [self removeTag:_tagStrings[index]];
 }
 - (void)removeTag:(NSString *)tag{
     NSArray *result = [_tagStrings filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"SELF == %@", tag]];
@@ -451,6 +490,7 @@
 -(void)handlerButtonAction:(EYCheckBoxButton*)tagButton{
     switch (_type) {
         case EYTagView_Type_Edit:
+        case EYTagView_Type_Edit_Only_Delete:
         {
             [self becomeFirstResponder];
             _editingTagIndex=[_tagButtons indexOfObject:tagButton];
@@ -482,6 +522,20 @@
         case EYTagView_Type_Multi_Selected:
         {
             tagButton.selected=!tagButton.selected;
+            //如果有标签数量选择限制
+            if (_maxSelected != 0) {
+                if (tagButton.selected == YES) {
+                    _tagButtonSelecteds += 1;
+                }else if(tagButton.selected == NO){
+                    _tagButtonSelecteds -= 1;
+                }
+                if (_tagButtonSelecteds > _maxSelected) {
+                    tagButton.selected=!tagButton.selected;
+                    UIAlertView* alert=[[UIAlertView alloc]initWithTitle:nil message:[NSString stringWithFormat:@"您最多只能选择%ld个标签",_maxSelected] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                    [alert show];
+                    _tagButtonSelecteds -= 1;
+                }
+            }
         }
             break;
         case EYTagView_Type_Multi_Selected_Edit:
@@ -511,6 +565,16 @@
         }
     }
     [self.tfInput resignFirstResponder];
+}
+
+-(NSArray *)getTagTexts{
+    NSMutableArray *texts = [NSMutableArray array];
+    for (UIButton *bt in self.tagButtons) {
+        if (bt.selected) {
+            [texts addObject:bt.titleLabel.text];
+        }
+    }
+    return [NSArray arrayWithArray:texts];
 }
 
 #pragma mark UITextFieldDelegate
@@ -562,7 +626,11 @@
 #pragma mark UIMenuController
 
 - (void) deleteItemClicked:(id) sender {
-    [self removeTag:_tagStrings[_editingTagIndex]];
+    if (_delegate && [_delegate respondsToSelector:@selector(willRemoveTag:index:)]) {
+        if ([_delegate willRemoveTag:self index:_editingTagIndex]) {
+            [self removeTag:_tagStrings[_editingTagIndex]];
+        }
+    }
 }
 - (BOOL) canPerformAction:(SEL)selector withSender:(id) sender {
     if (selector == @selector(deleteItemClicked:) /*|| selector == @selector(copy:)*/ /*<--enable that if you want the copy item */) {
@@ -595,8 +663,16 @@
 }
 -(void)setType:(EYTagView_Type)type{
     _type=type;
+    if (_type==EYTagView_Type_Display
+        || _type==EYTagView_Type_Flow) {
+        self.userInteractionEnabled=NO;
+    }else{
+        self.userInteractionEnabled=YES;
+    }
+    
     switch (_type) {
         case EYTagView_Type_Edit:
+        case EYTagView_Type_Edit_Only_Delete:
         {
             for (UIButton* button in _tagButtons) {
                 button.selected=YES;
@@ -664,7 +740,11 @@
 }
 #pragma mark autolayout
 -(CGSize)intrinsicContentSize{//UIViewNoIntrinsicMetric
-    return CGSizeMake(UIViewNoIntrinsicMetric, _newHeight);
+    if (_numberOfLines==0) {
+        return CGSizeMake(UIViewNoIntrinsicMetric, _newHeight);
+    } else {
+        return CGSizeMake((_tagPaddingSize.height+_tagHeight)*_numberOfLines+_tagPaddingSize.height, _newHeight);
+    }
 }
 -(void)layoutSubviews{
     [self layoutTagviews];

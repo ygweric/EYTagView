@@ -7,7 +7,7 @@
 //
 
 #import "ViewController.h"
-#import "EYTagView.h"
+
 
 @interface ViewController ()<EYTagViewDelegate>
 @property (strong, nonatomic) IBOutlet EYTagView *tagView;
@@ -30,6 +30,7 @@
         tagView.backgroundColor=COLORRGB(0x00ffff);
         tagView.colorInputBoard=COLORRGB(0x2ab44e);
         tagView.viewMaxHeight=230;
+        tagView.type=_type;
         
         [tagView addTags:@[
                            @"abcdefghigklmnopqrstuvwxyz123456789",
@@ -66,7 +67,7 @@
         tagView.backgroundColor=COLORRGB(0x00ffff);
         tagView.colorInputBoard=COLORRGB(0x2ab44e);
         
-        tagView.type=EYTagView_Type_Flow;
+        tagView.type=_type;
         tagView.viewMaxHeight=230;
         
         [tagView addTags:@[

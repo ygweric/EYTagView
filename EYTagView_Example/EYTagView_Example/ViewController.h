@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "EYTagView.h"
 
 @interface ViewController : UIViewController
 
-
+@property (nonatomic) EYTagView_Type type;
 @end
 
