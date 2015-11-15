@@ -295,7 +295,7 @@
                 }
                 vArrow.frame=frame;
                 [_tagArrows addObject:vArrow];
-                [self addSubview:vArrow];
+                [_svContainer addSubview:vArrow];
             }
         }
     }
